@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Raleway');
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+    min-height: 100vh;
+    padding-bottom: 52px;
+}
+
+header img {
+    height: 62px;
+}
+
+h1 {
+    font-family: "Lobster", cursive;
+    margin-left: 0.5em;
+    color: #F86809;
+}
+
+/*Header*/
+
+header div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Nav */
+
+nav {
+	border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    padding: 3px 0;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .container::before, nav .container::after {
+    content: none;
+}
+
+nav .container .derecha {
+    display: flex;
+    align-items: center;
+}
+
+nav .derecha form {
+    display: flex;
+}
+
+nav .derecha > button {
+    margin-left: 0.5em;
+}
+
+/* Footer */
+
+footer {
+    border-top: 1px solid green;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 8px;
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .container::before, footer .container::after {
+    content: none;
+}
+
+footer ul {
+    margin-bottom: 0;
+}
+
+@media all and (max-width: 767px) {
+    footer .container {
+        flex-direction: column;
+    }
+    footer ul:first-of-type {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    footer ul:last-of-type {
+        margin-top: 8px;
+    }
+}
