@@ -14,7 +14,7 @@
         </ul>
     </li>
     <?php while ($fila = $consultaCategorias -> fetch_assoc()) {?>
-        <li class="categoriaProducto <?php if ($fila[id] == $_GET[categoria_id]) {echo " activo";} ?>">
+        <li class="categoriaProducto <?= (($fila[id] == $_GET[categoria_id]) ? " activo": "") ?>">
             <a href="productos.php?categoria_id=<?= $fila[id]?>" data-toggle="tooltip" title="<?= $fila[descripcion]?>" data-placement="right">
                 <?= $fila[nombre]?>
             </a>

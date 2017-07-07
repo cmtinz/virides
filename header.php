@@ -10,12 +10,12 @@
 <nav class="encabezado">
     <div class="container">
         <div class="izquierda">
-            <button type="button" class="btn btn-default hidden-lg hidden-md" data-toggle="collapse" data-target="#menu"><span class="glyphicon glyphicon-menu-hamburger"></button>
+            <button type="button" class="btn btn-default hidden-lg hidden-md" data-toggle="collapse" data-target="#menu"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
         </div>
         <div class="derecha">
             <form class="">
                 <input type="text" class="form-control" id="exampleInputName2" placeholder="Búsqueda">
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></button>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </form>
             <button type="button" class="btn btn-default">
                 <span class="badge">0</span>

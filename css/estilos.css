@@ -75,10 +75,67 @@ nav.encabezado .derecha > button {
 .principal {
     margin-top: 20px;
 }
+/* Productos */
 
-.contenido {
-
+.producto-contenedor {
+    margin-top: 1em;
 }
+
+.producto-imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.producto-descripcion {
+    text-align: center;
+}
+
+.producto-descripcion h3 {
+    font-size: 14px;
+    height: 1.75em;
+}
+
+.producto-precio {
+    color: gray;
+    margin-bottom: 4px;
+}
+
+.producto-agregar {
+    display: flex;
+    justify-content: center;
+}
+
+.producto-agregar button {
+    border: 1px lightgray solid;
+}
+
+.producto-agregar button:hover{
+    border-color: orange;
+}
+
+.producto-agregar button:active{
+    background-color: gray;
+}
+
+.producto-agregar button:first-of-type {
+    border-radius: 4px 0  0 4px;
+}
+
+.producto-agregar button:last-of-type {
+    border-radius: 0 4px  4px 0px;
+}
+
+.producto-agregar input {
+    max-width: 30%;
+    text-align: center;
+}
+
+.principal nav.paginador {
+    text-align: center;
+    margin-top: 1em;
+}
+
 
 /* Footer */
 

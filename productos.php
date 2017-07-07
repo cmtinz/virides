@@ -3,7 +3,7 @@
     require_once("conexion.php");
 
     /* Consulta Productos */
-    $max=5;
+    $max=20;
     $pag=0;
     if(isset($_GET[pag]) && $_GET[pag] <> ""){
         $pag=$_GET[pag];
@@ -54,45 +54,53 @@
                 </div>
                 <div class="col-lg-8 col-md-9 col-lg-offset-1 contenido">
                     <h2><?= $nombre_categoria[nombre]?></h2>
-                    <!-- Pager -->
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="<?php if ($pag == 0) {echo 'disabled';}?>">
-                                <a href="productos.php?pag=<?= $pag -1?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <?php for ($i = 0; $i <= $total_pag; $i++) { ?>
-                                <li class="<?php if ($pag == $i) {echo 'active';}?>">
-                                    <a href="productos.php?pag=<?= $i?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
-                                        <span aria-hidden="true"><?= $i + 1?></span>
-                                    </a>
-                                </li>
-                            <?php }?>
-                            <li class="<?php if ($pag == $total_pag) {echo 'disabled';}?>">
-                                <a href="productos.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav><!-- ./Pager -->
                     <!-- Grid Productos -->
-                    <div id="tablaProductos row">
+                    <div class="productos-tabla row">
                     <? if ($total){
                     while ($fila = $recurso->fetch_assoc()) {?>
-                    <div class="prodCont">
-                        <div class="imgProd">
-                            <img src="img/productos/<?= $fila[codigo]?>.jpg" alt="imagen de producto">
+                    <figure class="producto-contenedor col-lg-3 col-sm-4">
+                        <div class="producto-imagen cuadradoPerfecto">
+                            <img src="img/productos/<?= $fila[codigo]?>.jpg" alt="imagen de producto" class="img-responsive">
                         </div>
-                        <div class="descProd">
+                        <figcaption class="producto-descripcion">
                             <h3><a href="producto.php?id=<?php echo $fila[id]; ?>"><?php echo $fila[nombre];?></a></h3>
-                            <p><?php echo $fila[frase_promocional];?></p>
-                        </div>
-                        <div class="precioProd">
-                            <?php echo "$" . number_format($fila[precio], 0, ".", ",");?>
-                        </div>
-                    </div> <?php } } else { ?> <p>No hay resultados</p> <?php } ?>
-                    </div><!-- ./Grid Productos -->
+                            <div class="producto-precio">
+                                <?= "$" . number_format($fila[precio], 0, ".", ",") . " x " . $fila[unidad];?>
+                            </div>
+                            <div class="producto-agregar">
+                                <button class="producto-disminuir">-</button>
+                                <input type="text" name="cantidad" class="">
+                                <button class="producto-aumentar">+</button>
+                            </div>
+                        </figcaption>
+                    </figure> <?php } } else { ?> <p>No hay resultados</p> <?php } ?>
+                </div><!-- ./Grid Productos -->
+                <!-- Pager -->
+                <nav aria-label="Page navigation" class="paginador col-lg-12">
+                    <ul class="pagination">
+                        <?php if ($pag - 1 < 0 ) {?>
+                        <li>
+                            <a href="productos.php?pag=<?= $pag -1?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <?php ;} ?>
+                        <?php for ($i = 0; $i <= $total_pag; $i++) { ?>
+                            <li class="<?php if ($pag == $i) {echo 'active';}?>">
+                                <a href="productos.php?pag=<?= $i?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
+                                    <span aria-hidden="true"><?= $i + 1?></span>
+                                </a>
+                            </li>
+                        <?php }?>
+                        <?php if ($pag == $total_pag - 1) {?>
+                        <li class="">
+                            <a href="productos.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <?php ;} ?>
+                    </ul>
+                </nav><!-- ./Pager -->
                 </div>
             </div>
         </div>
