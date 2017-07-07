@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded", hartasFunciones());
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    hartasFunciones();
+});
+
 window.onresize = hartasFunciones;
 
 // Llama a las funciones de redimensionamiento
@@ -16,3 +20,4 @@ function cuadradoPerfecto(){
     var hola = document.querySelectorAll(".cuadradoPerfecto")
     hola.forEach(function (esto) {esto.style.height = esto.clientWidth + "px"})
 }
+

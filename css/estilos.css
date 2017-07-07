@@ -8,6 +8,7 @@ body {
     font-family: "Raleway", sans-serif;
     min-height: 100vh;
     padding-bottom: 52px;
+    position: relative;
 }
 
 header img {
@@ -28,35 +29,55 @@ header div{
     align-items: center;
 }
 
-/* Nav */
+/* Nav Horizontal */
 
-nav {
+nav.encabezado {
 	border-top: 1px solid green;
     border-bottom: 1px solid green;
     padding: 3px 0;
 }
 
-nav .container {
+nav.encabezado .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-nav .container::before, nav .container::after {
+nav.encabezado .container::before, nav.encabezado .container::after {
     content: none;
 }
 
-nav .container .derecha {
+nav.encabezado .container .derecha {
     display: flex;
     align-items: center;
 }
 
-nav .derecha form {
+nav.encabezado .derecha form {
     display: flex;
 }
 
-nav .derecha > button {
+nav.encabezado .derecha > button {
     margin-left: 0.5em;
+}
+
+/* Nav vertical */
+#menu ul li{
+	list-style-type: none;
+    margin-bottom: 0.5em;
+}
+
+#menu .activo a {
+    color: #F86809;
+}
+
+/* Contenido */
+
+.principal {
+    margin-top: 20px;
+}
+
+.contenido {
+
 }
 
 /* Footer */
