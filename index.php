@@ -1,6 +1,9 @@
 <?php
     /*Conexión a base de datos*/
     require_once("conexion.php");
+
+    /* Sesión */
+    if(!isset($_SESSION))session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">

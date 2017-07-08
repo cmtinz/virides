@@ -30,9 +30,12 @@ $(document).ready(function(){
 
 // Ejecuta consulta para comprar / actualizar la compra de un producto
 function comprarProducto(producto) {
-    $.post("comprar.php", {id: producto.getAttribute("data-producto"), cantidad: producto.value}, function(respuesta, codigo) {
+    $.post("comprar.php", {producto_id: producto.getAttribute("data-producto"), cantidad: producto.value}, function(respuesta, codigo) {
         if (codigo == "success") {
-            document.getElementById("carro").innerText = respuesta;
+            respuesta = JSON.parse(respuesta)
+            document.getElementById("carro").innerText = respuesta.total_items;
+        } else {
+            console.log(`Error: ${codigo}`)
         }
     })
 }

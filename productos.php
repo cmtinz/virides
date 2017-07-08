@@ -2,6 +2,9 @@
     /*Conexión a base de datos*/
     require_once("conexion.php");
 
+    /* Sesión */
+    require_once("sesion.php");
+
     /* Consulta Productos */
     $max=20;
     $pag=0;
@@ -12,7 +15,7 @@
     $busqueda = $_GET[busqueda];
     $consulta= " SELECT * FROM productos WHERE nombre LIKE '%$busqueda%' AND categoria_id = '$_GET[categoria_id]' ORDER BY fecha DESC";
     $consulta_limite = $consulta . " LIMIT $inicio, $max";
-    $recurso = $conexion->query($consulta_limite); 
+    $recurso = $conexion->query($consulta_limite);
     if (isset($_GET[total])) {
         $total = $_GET[total];
     } else {
