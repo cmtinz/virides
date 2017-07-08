@@ -21,6 +21,14 @@ h1 {
     color: #F86809;
 }
 
+a {
+    color: green;
+}
+
+a:hover {
+    color: green;
+}
+
 /*Header*/
 
 header div{

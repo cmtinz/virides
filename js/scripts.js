@@ -12,15 +12,30 @@ $(document).ready(function(){
         var valor;
         if (caja.value == "") {valor = 0} else {valor = parseInt(caja.value)}
         valor -= 1;
-        caja.value = valor < 0 ? 0: valor;;
+        caja.value = valor < 0 ? 0: valor;
+        comprarProducto(caja);
     });
     $(".producto-aumentar").click(function (){
         var caja = this.parentNode.getElementsByTagName("input")[0];
         var valor;
         if (caja.value == "") {valor = 0} else {valor = parseInt(caja.value)}
         caja.value = valor + 1;
+        comprarProducto(caja);
     });
+    $(".producto-caja").change(function () {
+        caja = this;
+        comprarProducto(caja);
+    })
 });
+
+// Ejecuta consulta para comprar / actualizar la compra de un producto
+function comprarProducto(producto) {
+    $.post("comprar.php", {id: producto.getAttribute("data-producto"), cantidad: producto.value}, function(respuesta, codigo) {
+        if (codigo == "success") {
+            document.getElementById("carro").innerText = respuesta;
+        }
+    })
+}
 
 // Llama a las funciones de redimensionamiento
 function hartasFunciones(){

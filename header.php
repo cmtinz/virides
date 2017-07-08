@@ -14,11 +14,11 @@
         </div>
         <div class="derecha">
             <form class="">
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Búsqueda">
+                <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Búsqueda">
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </form>
-            <button type="button" class="btn btn-default">
-                <span class="badge">0</span>
+            <button type="button" class="btn btn-default" id="boton-carro" data-togle="tooltip">
+                <span class="badge" id="carro">0</span>
                 <span class="glyphicon glyphicon-shopping-cart"></span>
             </button>
         </div>

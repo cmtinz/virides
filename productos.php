@@ -63,13 +63,13 @@
                             <img src="img/productos/<?= $fila[codigo]?>.jpg" alt="imagen de producto" class="img-responsive">
                         </div>
                         <figcaption class="producto-descripcion">
-                            <h3><a href="producto.php?id=<?php echo $fila[id]; ?>"><?php echo $fila[nombre];?></a></h3>
+                            <h3><a href="producto.php?id=<?= $fila[id]; ?>"><?= $fila[nombre]?></a></h3>
                             <div class="producto-precio">
                                 <?= "$" . number_format($fila[precio], 0, ".", ",") . " x " . $fila[unidad];?>
                             </div>
                             <div class="producto-agregar">
                                 <button class="producto-disminuir">-</button>
-                                <input type="text" name="cantidad" class="">
+                                <input type="text" name="cantidad" class="producto-caja" data-producto="<?= $fila[id]?>">
                                 <button class="producto-aumentar">+</button>
                             </div>
                         </figcaption>
