@@ -25,6 +25,19 @@
     $recurso_cantidadProducto = $conexion -> query($consulta_cantidadProducto);
     $fila_cantidadProducto = $recurso_cantidadProducto -> fetch_assoc();
 
+    /* Determina precio producto modificado */
+    $consulta_precioProducto = "select precio from productos where id='". $_POST['producto_id']."'";
+    $recurso_precioProducto = $conexion -> query($consulta_precioProducto);
+    $fila_precioProducto = $recurso_precioProducto -> fetch_assoc();
+    $fila_precioProducto = $fila_precioProducto['precio'] * $fila_cantidadProducto['cantidad'];
+
+    /* Determina sub total */
+    $consulta_subtotal = "select cantidad, precio from compras left join productos on producto_id = productos.id where cliente_id = '". $_SESSION['user_id']."'";
+    $recurso_subtotal = $conexion -> query($consulta_subtotal);
+    $subtotal = 0;
+    while ($item = $recurso_subtotal -> fetch_assoc()) {
+        $subtotal += $item['cantidad'] * $item['precio'];
+    }
 
     // Recopila resultados y codifica la respuesta en JSON
     /*$respuesta['consulta_verificar'] = isset($consulta_verificar)? $consulta_verificar: $consulta_verificar;
@@ -34,5 +47,8 @@
     $respuesta['consulta_totalItems'] = $consulta_totalItems;*/
     $respuesta['cantidadProducto'] = existe($fila_cantidadProducto['cantidad']);
     $respuesta['total_items'] = existe($fila_totalItems['totalItems']);
+    $respuesta['precioProducto'] = $fila_precioProducto;
+    $respuesta['subtotal'] = $subtotal;
+
     echo json_encode($respuesta);
 ?>

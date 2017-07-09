@@ -2,6 +2,7 @@
     /*Consulta Menú*/
     $consulta = "select * from categorias where 1";
     $consultaCategorias = $conexion -> query($consulta);
+    $categoria_id = isset($_GET['categoria_id'])? $_GET['categoria_id']: "";
 ?>
 <ul>
     <li>
@@ -14,7 +15,7 @@
         </ul>
     </li>
     <?php while ($fila = $consultaCategorias -> fetch_assoc()) {?>
-        <li class="categoriaProducto <?= (($fila['id'] == $_GET['categoria_id']) ? " activo": "") ?>">
+        <li class="categoriaProducto <?= $fila['id'] == $categoria_id? " activo": "" ?>">
             <a href="productos.php?categoria_id=<?= $fila['id']?>" data-toggle="tooltip" title="<?= $fila['descripcion']?>" data-placement="right">
                 <?= $fila['nombre']?>
             </a>

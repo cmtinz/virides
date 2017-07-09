@@ -35,6 +35,15 @@ function comprarProducto(producto) {
             respuesta = JSON.parse(respuesta)
             document.getElementById("carro").innerText = respuesta.total_items;
             producto.value = respuesta.cantidadProducto;
+            // Actualiza totales del carro de compra si existe
+            if (document.getElementById("compra-contenedor")) {
+                console.log("existe");
+                document.getElementById("compra-subtotal").innerText = respuesta.subtotal;
+                var envio = respuesta.subtotal >= 15000?0: 15000 - respuesta.subtotal;
+                document.getElementById("compra-envio").innerText = envio;
+                document.getElementById("compra-total").innerText = envio + respuesta.subtotal;
+                producto.parentElement.parentElement.getElementsByClassName("compra-total")[0].innerText = respuesta.precioProducto
+            }
         } else {
             console.log(`Error: ${codigo}`)
         }

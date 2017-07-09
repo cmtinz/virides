@@ -14,7 +14,7 @@
     $inicio= $pag * $max;
     $busqueda = "";
     if(isset($_GET['busqueda'])) $busqueda = $_GET['busqueda'];
-    $consulta= " SELECT * FROM productos WHERE nombre LIKE '%$busqueda%' AND categoria_id = '" . $_GET['categoria_id'] . "' ORDER BY fecha DESC";
+    $consulta= " SELECT * FROM productos WHERE disponibilidad = '1' and nombre LIKE '%$busqueda%' AND categoria_id = '" . $_GET['categoria_id'] . "' ORDER BY fecha DESC";
     $consulta_limite = $consulta . " LIMIT $inicio, $max";
     $recurso = $conexion->query($consulta_limite);
     if (isset($_GET['total'])) {

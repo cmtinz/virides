@@ -2,6 +2,7 @@
     $consulta_totalItems = "select sum(cantidad) as totalItems from compras where `cliente_id` ='$_SESSION[user_id]' ";
     $recurso_totalItems = $conexion -> query($consulta_totalItems);
     $fila_totalItems = $recurso_totalItems -> fetch_assoc();
+    $totalItems = $fila_totalItems['totalItems'] =! ""? $fila_totalItems['totalItems'] : "0";
 ?>
 
 <!-- Header-->
@@ -23,10 +24,10 @@
                 <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Búsqueda">
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </form>
-            <button type="button" class="btn btn-default" id="boton-carro" data-togle="tooltip">
+            <a type="button" class="btn btn-default" id="boton-carro" data-togle="tooltip" href="carro.php">
                 <span class="badge" id="carro"><?= $fila_totalItems['totalItems'] ?></span>
                 <span class="glyphicon glyphicon-shopping-cart"></span>
-            </button>
+            </a>
         </div>
     </div><!-- /.container -->
 </nav><!--./nav-superior-->

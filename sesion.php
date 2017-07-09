@@ -19,4 +19,9 @@
         $consulta_agregar = $conexion -> query($consulta);
         $_SESSION[user_id] = $conexion -> insert_id;
     }
+
+    // Determina si existe una variable y en caso afirmativo la devuelve
+    function existe($elemento) {
+        return isset($elemento)? $elemento: "";
+    }
 ?>

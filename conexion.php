@@ -17,9 +17,4 @@
         $fecha = $ano . "/" . $meses[$mes - 1] . "/" . $dia . ", " . $hora . ":" . $minuto;
         return $fecha;
     };
-
-    // Determina si existe una variable y en caso afirmativo la devuelve
-    function existe($elemento) {
-        return isset($elemento)? $elemento: "";
-    }
 ?>
