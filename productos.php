@@ -65,6 +65,7 @@
                 </div>
                 <div class="col-lg-8 col-md-9 col-lg-offset-1 contenido">
                     <h2><?= $nombre_categoria['nombre']?></h2>
+
                     <!-- Grid Productos -->
                     <div class="productos-tabla row">
                     <? if ($total){
@@ -80,22 +81,25 @@
                             </div>
                             <div class="producto-agregar">
                                 <button class="producto-disminuir">-</button>
-                                <input type="text" name="cantidad" class="producto-caja" data-producto="<?= $fila['id']?>" value="<?= isset($producto_comprado[$fila['id']])? $producto_comprado[$fila['id']]: "";?>" >
+                                <input placeholder="-" type="text" name="cantidad" class="producto-caja" data-producto="<?= $fila['id']?>" value="<?= isset($producto_comprado[$fila['id']])? $producto_comprado[$fila['id']]: "";?>" >
                                 <button class="producto-aumentar">+</button>
                             </div>
                         </figcaption>
                     </figure> <?php } } else { ?> <p>No hay resultados</p> <?php } ?>
                 </div><!-- ./Grid Productos -->
+
                 <!-- Pager -->
                 <nav aria-label="Page navigation" class="paginador col-lg-12">
                     <ul class="pagination">
-                        <?php if ($pag - 1 < 0 ) {?>
-                        <li>
-                            <a href="productos.php?pag=<?= $pag -1?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
+                        <!-- Flecha atrás -->
+                        <?php if ($pag > 0) {?>
+                            <li>
+                                <a href="productos.php?pag=<?= $pag -1?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
                         <?php ;} ?>
+
                         <?php for ($i = 0; $i <= $total_pag; $i++) { ?>
                             <li class="<?php if ($pag == $i) {echo 'active';}?>">
                                 <a href="productos.php?pag=<?= $i?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
@@ -103,15 +107,18 @@
                                 </a>
                             </li>
                         <?php }?>
-                        <?php if ($pag == $total_pag - 1) {?>
-                        <li class="">
-                            <a href="productos.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
+
+                        <!--Flecha adelante -->
+                        <?php if ($pag < $total_pag) {?>
+                            <li class="">
+                                <a href="productos.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
                         <?php ;} ?>
                     </ul>
                 </nav><!-- ./Pager -->
+
                 </div>
             </div>
         </div>
