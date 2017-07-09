@@ -2,13 +2,6 @@
     require_once("conexion.php");
     require_once("sesion.php");
 
-    /*Comprar*/
-    /*if($_POST[comprar] == "comprar") {
-        $queryCompra = "INSERT INTO `compras` (`id`, `cliente`, `codigo`, `nombre`, `precio`, `cantidad`, `fecha`) VALUES (NULL, '$_POST[cliente]', '$_POST[codigo]', '$_POST[nombre]', '$_POST[precio]', '$_POST[cantidad]', CURRENT_TIMESTAMP)";
-        $recurso = $conexion-> query($queryCompra);
-        header("Location: boleta.php");
-    };*/
-
     /* Determina si hay una compra para el producto */
     $consulta_verificar = "select id from compras where producto_id = '$_POST[producto_id]' and `cliente_id`='$_SESSION[user_id]' ";
     $recurso_verificar = $conexion -> query($consulta_verificar);
@@ -27,12 +20,19 @@
     $recurso_totalItems = $conexion -> query($consulta_totalItems);
     $fila_totalItems = $recurso_totalItems -> fetch_assoc();
 
+    /* Determina cantidad comprada del producto */
+    $consulta_cantidadProducto = "select cantidad from compras where cliente_id = '$_SESSION[user_id]' and producto_id = '$_POST[producto_id]'";
+    $recurso_cantidadProducto = $conexion -> query($consulta_cantidadProducto);
+    $fila_cantidadProducto = $recurso_cantidadProducto -> fetch_assoc();
+
 
     // Recopila resultados y codifica la respuesta en JSON
-    $respuesta[consulta_verificar] = $consulta_verificar;
-    $respuesta[consulta_modificar] = $consulta_modificar;
-    $respuesta[consulta_agregar] = $consulta_agregar;
-    $respuesta[consulta_totalItems] = $consulta_totalItems;
-    $respuesta[total_items] = $fila_totalItems[totalItems];
+    /*$respuesta['consulta_verificar'] = isset($consulta_verificar)? $consulta_verificar: $consulta_verificar;
+    $respuesta['consulta_modificar'] = $consulta_modificar;
+    $respuesta['consulta_agregar'] = $consulta_agregar;
+    $respuesta['consulta_cantidadProducto'] = $consulta_cantidadProducto;
+    $respuesta['consulta_totalItems'] = $consulta_totalItems;*/
+    $respuesta['cantidadProducto'] = existe($fila_cantidadProducto['cantidad']);
+    $respuesta['total_items'] = existe($fila_totalItems['totalItems']);
     echo json_encode($respuesta);
 ?>

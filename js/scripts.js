@@ -34,6 +34,7 @@ function comprarProducto(producto) {
         if (codigo == "success") {
             respuesta = JSON.parse(respuesta)
             document.getElementById("carro").innerText = respuesta.total_items;
+            producto.value = respuesta.cantidadProducto;
         } else {
             console.log(`Error: ${codigo}`)
         }

@@ -8,16 +8,17 @@
     /* Consulta Productos */
     $max=20;
     $pag=0;
-    if(isset($_GET[pag]) && $_GET[pag] <> ""){
-        $pag=$_GET[pag];
+    if(isset($_GET['pag']) && $_GET['pag'] <> ""){
+        $pag=$_GET['pag'];
     }
     $inicio= $pag * $max;
-    $busqueda = $_GET[busqueda];
-    $consulta= " SELECT * FROM productos WHERE nombre LIKE '%$busqueda%' AND categoria_id = '$_GET[categoria_id]' ORDER BY fecha DESC";
+    $busqueda = "";
+    if(isset($_GET['busqueda'])) $busqueda = $_GET['busqueda'];
+    $consulta= " SELECT * FROM productos WHERE nombre LIKE '%$busqueda%' AND categoria_id = '" . $_GET['categoria_id'] . "' ORDER BY fecha DESC";
     $consulta_limite = $consulta . " LIMIT $inicio, $max";
     $recurso = $conexion->query($consulta_limite);
-    if (isset($_GET[total])) {
-        $total = $_GET[total];
+    if (isset($_GET['total'])) {
+        $total = $_GET['total'];
     } else {
         $recurso_totales = $conexion -> query($consulta);
         $total = $recurso_totales -> num_rows;
@@ -29,6 +30,13 @@
     $recurso_categoria = $conexion -> query($consulta);
     $nombre_categoria = $recurso_categoria -> fetch_assoc();
 
+    /* Consulta Productos Comprados */
+    $consulta_productosComprados = "select * from compras inner join productos on compras.`producto_id` = productos.`id` where cliente_id = '$_SESSION[user_id]' and categoria_id = '$_GET[categoria_id]' ";
+    $recurso_productosComprados = $conexion -> query($consulta_productosComprados);
+    while ($producto = $recurso_productosComprados->fetch_assoc()) {
+        $producto_comprado[$producto['id']] = $producto['cantidad'];
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -56,23 +64,23 @@
                     <?php require_once("menu.php");?>
                 </div>
                 <div class="col-lg-8 col-md-9 col-lg-offset-1 contenido">
-                    <h2><?= $nombre_categoria[nombre]?></h2>
+                    <h2><?= $nombre_categoria['nombre']?></h2>
                     <!-- Grid Productos -->
                     <div class="productos-tabla row">
                     <? if ($total){
                     while ($fila = $recurso->fetch_assoc()) {?>
                     <figure class="producto-contenedor col-lg-3 col-sm-4">
                         <div class="producto-imagen cuadradoPerfecto">
-                            <img src="img/productos/<?= $fila[codigo]?>.jpg" alt="imagen de producto" class="img-responsive">
+                            <img src="img/productos/<?= $fila['codigo']?>.jpg" alt="imagen de producto" class="img-responsive">
                         </div>
                         <figcaption class="producto-descripcion">
-                            <h3><a href="producto.php?id=<?= $fila[id]; ?>"><?= $fila[nombre]?></a></h3>
+                            <h3><a href="producto.php?id=<?= $fila['id']; ?>"><?= $fila['nombre']?></a></h3>
                             <div class="producto-precio">
-                                <?= "$" . number_format($fila[precio], 0, ".", ",") . " x " . $fila[unidad];?>
+                                <?= "$" . number_format($fila['precio'], 0, ".", ",") . " x " . $fila['unidad'];?>
                             </div>
                             <div class="producto-agregar">
                                 <button class="producto-disminuir">-</button>
-                                <input type="text" name="cantidad" class="producto-caja" data-producto="<?= $fila[id]?>">
+                                <input type="text" name="cantidad" class="producto-caja" data-producto="<?= $fila['id']?>" value="<?= isset($producto_comprado[$fila['id']])? $producto_comprado[$fila['id']]: "";?>" >
                                 <button class="producto-aumentar">+</button>
                             </div>
                         </figcaption>
@@ -83,21 +91,21 @@
                     <ul class="pagination">
                         <?php if ($pag - 1 < 0 ) {?>
                         <li>
-                            <a href="productos.php?pag=<?= $pag -1?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
+                            <a href="productos.php?pag=<?= $pag -1?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         <?php ;} ?>
                         <?php for ($i = 0; $i <= $total_pag; $i++) { ?>
                             <li class="<?php if ($pag == $i) {echo 'active';}?>">
-                                <a href="productos.php?pag=<?= $i?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
+                                <a href="productos.php?pag=<?= $i?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
                                     <span aria-hidden="true"><?= $i + 1?></span>
                                 </a>
                             </li>
                         <?php }?>
                         <?php if ($pag == $total_pag - 1) {?>
                         <li class="">
-                            <a href="productos.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>&categoria_id=<?= $_GET[categoria_id]?>">
+                            <a href="productos.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>&categoria_id=<?= $_GET['categoria_id']?>">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

@@ -6,7 +6,7 @@
     if(!isset($_SESSION))session_start();
 
     // Determina si existe un usuario creado, caso contrario crea uno provisional
-    if (!$_SESSION[user_id]) {
+    if (!$_SESSION['user_id']) {
         // Determina el IP del visitante, por puro copuchar.
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];

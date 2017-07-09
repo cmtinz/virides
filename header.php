@@ -1,3 +1,9 @@
+<?php
+    $consulta_totalItems = "select sum(cantidad) as totalItems from compras where `cliente_id` ='$_SESSION[user_id]' ";
+    $recurso_totalItems = $conexion -> query($consulta_totalItems);
+    $fila_totalItems = $recurso_totalItems -> fetch_assoc();
+?>
+
 <!-- Header-->
 <header>
         <div class="container">
@@ -18,7 +24,7 @@
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </form>
             <button type="button" class="btn btn-default" id="boton-carro" data-togle="tooltip">
-                <span class="badge" id="carro">0</span>
+                <span class="badge" id="carro"><?= $fila_totalItems['totalItems'] ?></span>
                 <span class="glyphicon glyphicon-shopping-cart"></span>
             </button>
         </div>

@@ -14,11 +14,11 @@
         </ul>
     </li>
     <?php while ($fila = $consultaCategorias -> fetch_assoc()) {?>
-        <li class="categoriaProducto <?= (($fila[id] == $_GET[categoria_id]) ? " activo": "") ?>">
-            <a href="productos.php?categoria_id=<?= $fila[id]?>" data-toggle="tooltip" title="<?= $fila[descripcion]?>" data-placement="right">
-                <?= $fila[nombre]?>
+        <li class="categoriaProducto <?= (($fila['id'] == $_GET['categoria_id']) ? " activo": "") ?>">
+            <a href="productos.php?categoria_id=<?= $fila['id']?>" data-toggle="tooltip" title="<?= $fila['descripcion']?>" data-placement="right">
+                <?= $fila['nombre']?>
             </a>
         </li>
-    <?php;}?>
+    <?php ;}?>
     <li><a href="ingreso.php">Ingreso</a></li>
 </ul>
