@@ -5,6 +5,11 @@
     /* Sesión */
     require_once("sesion.php");
 
+    /* Determinar si el usuario está registrado */
+    if ($usuarioRegistrado == true) {
+        header("Location: editar-usuario.php");
+    }
+
     /* Crear usuario */
     if(isset($_POST['boton']) && $_POST['boton'] == "Crear Usuario") {
         $consulta_crearUsuario = "update clientes set nombre = '". $_POST['nombre'] ."', email= '". $_POST['mail'] ."', telefono = '". $_POST['telefono'] ."', comuna = '". $_POST['comuna'] ."', direccion = '". $_POST['direccion'] ."', contrasena='". $_POST['contrasena'] ."' where id = '". $_SESSION['user_id'] . "'";
@@ -47,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <label for="mail">Mail</label>
-                            <input type="email" class="form-control" id="mail" name="mail" placeholder="Email">
+                            <input type="email" class="form-control" id="mail" name="mail" placeholder="Email: será tu nombre de usuario.">
                         </div>
                         <div class="form-group">
                             <label for="direccion">Dirección</label>
@@ -60,19 +65,19 @@
                         <div class="form-group">
                             <label for="comuna">Comuna</label>
                             <select class="form-control" name="comuna" id="comuna">
-                                <option>Providencia</option>
-                                <option>Ñuñoa</option>
-                                <option>Lo Barnechea</option>
-                                <option>La Reina</option>
-                                <option>Las Condes</option>
-                                <option>Santiago Centro</option>
+                                <option value="Providencia">Providencia</option>
+                                <option value="Ñuñoa">Ñuñoa</option>
+                                <option value="Lo Barnechea">Lo Barnechea</option>
+                                <option value="La Reina">La Reina</option>
+                                <option value="Las Condes">Las Condes</option>
+                                <option value="Santiago Centro">Santiago Centro</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="contrasena">Contraseña</label>
                             <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Constraseña">
                         </div>
-                        <div class="row boton">
+                        <div class="row boton-registro">
                             <input type="submit" class="btn btn-default" value="Crear Usuario" name="boton">
                         </div>
                     </form>

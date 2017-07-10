@@ -17,11 +17,23 @@
         }
         $consulta = "insert into clientes (`ultimo_ip`) values ('$ip')";
         $consulta_agregar = $conexion -> query($consulta);
-        $_SESSION[user_id] = $conexion -> insert_id;
+        $_SESSION['user_id'] = $conexion -> insert_id;
     }
+
+    // Determina si el usuario está registrado
+    $consulta_determinarRegistro="select email, contrasena from clientes where id='". $_SESSION['user_id']."'";
+    $recurso_determinarRegistro = $conexion -> query($consulta_determinarRegistro);
+    $determinarRegistro = $recurso_determinarRegistro -> fetch_assoc();
+    $usuarioRegistrado = novacia($determinarRegistro['email']) || novacia($determinarRegistro['contrasena'])? true:false;
 
     // Determina si existe una variable y en caso afirmativo la devuelve
     function existe($elemento) {
         return isset($elemento)? $elemento: "";
     }
+
+    // Dertermina si una variable está establecida y tiene contenido, en caso afirmativo devuelve true
+    function novacia($variable) {
+        return isset($variable) && !empty($variable)? true: false;
+    }
+
 ?>

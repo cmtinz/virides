@@ -254,6 +254,12 @@ h2 + .compra-contenedor {
     margin-top: 3em;
 }
 
+/* Registro */
+
+.boton-registro {
+    text-align: right;
+}
+
 /* Footer */
 
 footer {
