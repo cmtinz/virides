@@ -21,6 +21,14 @@ h1 {
     color: #F86809;
 }
 
+h2 {
+    color: #F86809;
+}
+
+h3 {
+    color: #F86809;
+}
+
 a {
     color: green;
 }
@@ -149,8 +157,101 @@ nav.encabezado .derecha > button {
 }
 
 /* Carro */
+
+h2 + .compra-contenedor {
+    margin-top: 1.5em;
+}
+
 .compra-contenedor {
     display: flex;
+}
+
+.compra-contenedor + .compra-contenedor {
+    margin-top: 0.5em;
+}
+
+.compra-nombreProducto {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.compra-modificar {
+    display: flex;
+}
+
+.compra-modificar input {
+    max-width: 3em;
+    text-align: center;
+
+}
+
+.compra-modificar button {
+    background-color: transparent;
+    border: 1px lightgray solid;
+}
+
+.compra-modificar button:hover {
+    border-color: orange;
+}
+
+.compra-modificar button:active {
+    background-color: gray;
+    color: white;
+} 
+
+.compra-modificar button:last-of-type {
+    border-radius: 0 4px 4px 0px;
+    margin-left: 0.25em;
+}
+
+.compra-modificar button:first-of-type {
+    border-radius: 4px 0px 0px 4px;
+    margin-left: 0.25em;
+}
+
+.compra-total {
+    flex-basis: 5em;
+    text-align: right;
+    align-self: center; 
+}
+
+.compra-total:before {
+    content: "$";
+    
+}
+
+.totales {
+    margin-top: 1em;
+}
+
+.totales-subtotal {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.totales-subtotal .totales-cifra {
+    flex-basis: 5em;
+    text-align: right;
+}
+
+.totales-subtotal .totales-cifra:before {
+    content: "$"
+}
+
+#compra-total {
+    font-weight: bold;
+}
+
+/* Regístrate */
+
+.registrate {
+    margin-top: 1em;
+}
+
+.registrate .row {
+    text-align: center;
+    margin-top: 3em;
 }
 
 /* Footer */
@@ -188,5 +289,12 @@ footer ul {
     }
     footer ul:last-of-type {
         margin-top: 8px;
+    }
+
+}
+
+@media all and (max-width: 320px) {
+    #busqueda {
+        max-width: 7em;
     }
 }

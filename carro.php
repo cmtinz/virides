@@ -9,12 +9,19 @@
     $consulta_eliminarVacios = "delete from compras where cliente_id = '". $_SESSION['user_id'] ."' and cantidad = '0'";
     $recurso_eliminarVacios = $conexion -> query($consulta_eliminarVacios);
 
+    /* Eliminar producto */
+    if(isset($_GET['eliminar']) && $_GET['eliminar']<> ""){
+        $consulta_eliminarProducto = "delete from compras where cliente_id = '". $_SESSION['user_id']."' and producto_id = '".$_GET['eliminar']."'";
+        $recurso_eliminarProducto = $conexion -> query($consulta_eliminarProducto);
+    }
+
     /* Consulta Productos Comprados */
     $consulta_productosComprados = "select compras.*, productos.nombre as producto_nombre, productos.`precio` as producto_precio, productos.precio as producto_precio from compras left join productos on producto_id = productos.`id` where cliente_id = '" . $_SESSION['user_id'] . "'";
     $recurso_productosComprados = $conexion -> query($consulta_productosComprados);
 
     /* Inicializa variables */
     $total_Compra = 0;
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,7 +62,7 @@
                                     <button class="producto-disminuir">-</button>
                                     <input type="text" name="cantidad" class="producto-caja" data-producto="<?= $compra['producto_id']?>" value="<?= $compra['cantidad']?>" >
                                     <button class="producto-aumentar">+</button>
-                                    <button class="producto-eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                                    <button class="producto-eliminar" data-productoID="<?= $compra['producto_id']?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                                 </div>
                                 <div class="compra-total">
                                     <?php
@@ -66,10 +73,13 @@
                                 </div>
                             </div><!-- ./Compra -->
                         <?php ;}?>
+                        <!-- Totales -->
                         <div class="totales">
                             <div class="totales-subtotal">
                                 <span class="totales-etiqueta">Subtotal</span>
-                                <span class="totales-cifra" id="compra-subtotal"><?= number_format($total_Compra, 0, ".", ",")?></span>
+                                <span class="totales-cifra" id="compra-subtotal">
+                                    <?= number_format($total_Compra, 0, ".", ",")?>
+                                </span>
                             </div>
                             <div class="totales-subtotal">
                                 <span class="totales-etiqueta">Envío</span>
@@ -77,11 +87,18 @@
                                     <?= number_format($total_Envio = $total_Compra >= 15000? 0: 15000 - $total_Compra, 0, ".", ",")?>
                                 </span>
                             </div>
-                            <div class="totales-total">
+                            <div class="totales-subtotal totales-total">
                                 <span class="totales-etiqueta">Total</span>
                                 <span class="totales-cifra" id="compra-total">
                                     <?= number_format($total_General = $total_Envio +  $total_Compra, 0, ".", ",") ?>
                                 </span>
+                            </div>
+                        </div><!-- ./Totales -->
+                        <div class="registrate">
+                            <h3>Regístrate para continuar</h3>
+                            <div class="row">
+                                <a class="btn btn-default" href="registro.php" role="button">Nuevo Usuario</a>
+                                <a class="btn btn-default" href="ingreso.php" role="button">Iniciar sesión</a>
                             </div>
                         </div>
                     <?php ;} else { ?>

@@ -6,7 +6,7 @@ $(document).ready(function(){
     hartasFunciones();
     window.onresize = hartasFunciones;
 
-    // Eventos de aumentar o disminuir productos
+    // Eventos de aumentar, disminuir o eliminar productos
     $(".producto-disminuir").click(function (){
         var caja = this.parentNode.getElementsByTagName("input")[0];
         var valor;
@@ -26,6 +26,10 @@ $(document).ready(function(){
         caja = this;
         comprarProducto(caja);
     })
+    $(".producto-eliminar").click(function (esto) {
+        var id = esto.target.getAttribute("data-productoId"); 
+        window.location.href = "carro.php?eliminar=" + id;
+    });
 });
 
 // Ejecuta consulta para comprar / actualizar la compra de un producto
@@ -37,12 +41,11 @@ function comprarProducto(producto) {
             producto.value = respuesta.cantidadProducto;
             // Actualiza totales del carro de compra si existe
             if (document.getElementById("compra-contenedor")) {
-                console.log("existe");
-                document.getElementById("compra-subtotal").innerText = respuesta.subtotal;
+                document.getElementById("compra-subtotal").innerText = respuesta.subtotal.toLocaleString();
                 var envio = respuesta.subtotal >= 15000?0: 15000 - respuesta.subtotal;
-                document.getElementById("compra-envio").innerText = envio;
-                document.getElementById("compra-total").innerText = envio + respuesta.subtotal;
-                producto.parentElement.parentElement.getElementsByClassName("compra-total")[0].innerText = respuesta.precioProducto
+                document.getElementById("compra-envio").innerText = envio.toLocaleString();
+                document.getElementById("compra-total").innerText = (envio + respuesta.subtotal).toLocaleString();
+                producto.parentElement.parentElement.getElementsByClassName("compra-total")[0].innerText = respuesta.precioProducto.toLocaleString()
             }
         } else {
             console.log(`Error: ${codigo}`)
