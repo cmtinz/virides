@@ -38,9 +38,15 @@
         ";
         $cabecera = "From: carl.martinezp@alumnos.duoc.cl\n";
         $cabecera .= "Reply-To: carl.martinezp@alumnos.duoc.cl\n";
-        $destinatario= $usuario['nombre'] . " <". $usuario['mail'] .">";
+        $destinatario= $usuario['nombre'] . " <". $usuario['email'] .">";
         $asunto="Venta en Verdurería Bilbao 640";
         mail("$destinatario", "$asunto", "$mensaje", "$cabecera");
+
+        // Eliminar productos del carro de compra
+        $consulta_eliminarProductos = "delete from compras where cliente_id = '".$_SESSION['user_id']."'";
+        $recurso_eliminarProductos = $conexion -> query($consulta_eliminarProductos); 
+
+        // Redirigir a compra exitosa
         header("Location: compra-exitosa.php");
     }
 
