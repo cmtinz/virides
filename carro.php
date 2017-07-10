@@ -19,6 +19,31 @@
     $consulta_productosComprados = "select compras.*, productos.nombre as producto_nombre, productos.`precio` as producto_precio, productos.precio as producto_precio from compras left join productos on producto_id = productos.`id` where cliente_id = '" . $_SESSION['user_id'] . "'";
     $recurso_productosComprados = $conexion -> query($consulta_productosComprados);
 
+    /* Consulta datos de usuario */
+    $consulta_usuario = "select * from clientes where id = '". $_SESSION['user_id']."'";
+    $consulta_usuario = $conexion -> query($consulta_usuario);
+    $usuario = $consulta_usuario -> fetch_assoc();
+
+    /* Compra */
+    if(isset($_POST['boton']) && $_POST['boton'] == "Comprar") {
+        $mensaje="El usuario ".$usuario['nombre']." ha realizado una compra en el sitio web:
+        Correo electrónico: ".$usuario['email']."
+        Teléfono: ".$_POST['telefono']."
+        Dirección de entrega: ".$_POST['direccion']."
+        Comuna: ".$_POST['comuna']."
+        Sub Total: " . $_POST['totalSubtotal']."
+        Envío: " . $_POST['totalEnvio']."
+        Total: " . $_POST['totalCompra']."
+        _______________________________________________
+        ";
+        $cabecera = "From: carl.martinezp@alumnos.duoc.cl\n";
+        $cabecera .= "Reply-To: carl.martinezp@alumnos.duoc.cl\n";
+        $destinatario= $usuario['nombre'] . " <". $usuario['mail'] .">";
+        $asunto="Venta en Verdurería Bilbao 640";
+        mail("$destinatario", "$asunto", "$mensaje", "$cabecera");
+        header("Location: compra-exitosa.php");
+    }
+
     /* Inicializa variables */
     $total_Compra = 0;
 
@@ -94,13 +119,48 @@
                                 </span>
                             </div>
                         </div><!-- ./Totales -->
-                        <div class="registrate">
-                            <h3>Regístrate para continuar</h3>
-                            <div class="row">
-                                <a class="btn btn-default" href="registro.php" role="button">Nuevo Usuario</a>
-                                <a class="btn btn-default" href="ingreso.php" role="button">Iniciar sesión</a>
+                        <!-- Determina si el ususario está registrado-->
+                        <?php if ($usuarioRegistrado == false) {?>
+                            <!-- Usuario no registrado -->
+                            <div class="registrate">
+                                <h3>Regístrate para continuar</h3>
+                                <div class="row">
+                                    <a class="btn btn-default" href="registro.php" role="button">Nuevo Usuario</a>
+                                    <a class="btn btn-default" href="ingreso.php" role="button">Iniciar sesión</a>
+                                </div>
                             </div>
-                        </div>
+                        <?php ;} else {?>
+                            <!-- Usuario registrado -->
+                            <form action="" method="post" class="revalidacion">
+                                <h3>Revalida tus datos<small> para continuar con la compra</small></h3>
+
+                                <div class="form-group">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" value="<?= $usuario['direccion'] ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="direccion">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="<?= $usuario['telefono'] ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="comuna">Comuna</label>
+                                    <select class="form-control" name="comuna" id="comuna">
+                                        <option <?= $usuario['comuna'] == "Providencia"? "selected": ""?> >Providencia</option>
+                                        <option <?= $usuario['comuna'] == "Ñuñoa"? "selected": ""?> >Ñuñoa</option>
+                                        <option <?= $usuario['comuna'] == "Lo Barnechea"? "selected": ""?> >Lo Barnechea</option>
+                                        <option <?= $usuario['comuna'] == "La Reina"? "selected": ""?> >La Reina</option>
+                                        <option <?= $usuario['comuna'] == "Las Condes"? "selected": ""?> >Las Condes</option>
+                                        <option <?= $usuario['comuna'] == "Santiago Centro"? "selected": ""?> >Santiago Centro</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="totalSubtotal" value="<?= number_format($total_Compra, 0, ".", ",") ?>">
+                                <input type="hidden" name="totalEnvio" value="<?= number_format($total_Envio = $total_Compra >= 15000? 0: 15000 - $total_Compra, 0, ".", ",")?>">
+                                <input type="hidden" name="totalCompra" value="<?= number_format($total_General = $total_Envio +  $total_Compra, 0, ".", ",")?>">
+                                <div class="row boton-registro">
+                                    <input type="submit" class="btn btn-default btn-lg" value="Comprar" name="boton"?>
+                                </div>
+                            </form>
+                        <?php ;}?>
                     <?php ;} else { ?>
                         No existen compras registradas.
                     <?php ;} ?>
