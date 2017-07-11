@@ -1,13 +1,17 @@
 <?php
     /* Conexión */
-    require_once("conexion.php");
+    /* Conexión */
+    require_once("../conexion.php");
 
-    /* Verificar permisos */
-    require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
 
     /* Consulta Usuarios */
     $consultaUsuarios = "SELECT * FROM clientes WHERE 1 AND id = '$_GET[id]'";
-    $recursoUsuarios = $conn -> query($consultaUsuarios);
+    $recursoUsuarios = $conexion -> query($consultaUsuarios);
     $fila = $recursoUsuarios -> fetch_assoc();
 
 ?>

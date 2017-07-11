@@ -1,13 +1,17 @@
 <?php
   /* Conexión */
-  require_once("conexion.php");
+    /* Conexión */
+    require_once("../conexion.php");
 
-  /* Verificar permisos */
-  require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
 
   /* Consulta ver productos */
   $query = " SELECT * FROM productos WHERE 1 AND id=$_GET[id]";            
-  $recurso = $conn -> query($query); 
+  $recurso = $conexion -> query($query); 
   $total = $recurso -> num_rows;
   $fila = $recurso -> fetch_assoc();
 ?>

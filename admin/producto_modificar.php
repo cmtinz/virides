@@ -1,15 +1,18 @@
 <?php 
     /* Conexión */
-    require_once("conexion.php");
+    require_once("../conexion.php");
 
-    /* Verificar permisos */
-    require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
     
     /* Consulta Modificar */
     if($_POST[modificar] == "Modificar") {
         $listaColores =  implode(",", $_POST[color]);
         $consulta = "UPDATE `productos` SET `nombre` = '$_POST[nombre]', `codigo` = '$_POST[codigo]', `categoria` = '$_POST[categoria]', `precio` = '$_POST[precio]', `disponibilidad` = '$_POST[disponibilidad]', `unidad` = '$_POST[unidad]', `fecha` = '$_POST[fecha]' WHERE `productos`.`id` = $_POST[id]; ";
-        $recurso = $conn-> query($consulta);
+        $recurso = $conexion-> query($consulta);
         header('Location: index.php');
     };
     
@@ -20,12 +23,12 @@
 
     /* Consulta Producto */
     $consulta = "SELECT * FROM productos WHERE 1 AND id=$_GET[id]";            
-    $recurso = $conn -> query($consulta);
+    $recurso = $conexion -> query($consulta);
     $fila = $recurso -> fetch_assoc();
     
     /* Consulta lista de categorías */
     $consultaCateogorias = "SELECT categoria FROM `productos` GROUP BY categoria";
-    $recursoCategorias = $conn -> query($consultaCateogorias);
+    $recursoCategorias = $conexion -> query($consultaCateogorias);
     
 ?>
 
@@ -36,7 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Modificar Producto</title>
-    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="../css/producto_agregar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>

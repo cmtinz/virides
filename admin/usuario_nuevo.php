@@ -1,20 +1,24 @@
 <?php
     /* Conexión */
-    require_once("conexion.php");
+    /* Conexión */
+    require_once("../conexion.php");
 
-    /* Verificar permisos */
-    require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
 
     /* Consulta agregar cliente */
     if($_POST[enviar] == "Enviar") {
         $insert = "INSERT INTO `clientes` (`id`, `nombre`, `email`, `telefono`, `comuna`, `direccion`, `usuario`, `contrasena`) VALUES (NULL, '$_POST[nombre]', '$_POST[email]', '$_POST[telefono]', '$_POST[comuna]', '$_POST[direccion]', '$_POST[usuario]', '$_POST[contrasena]')";
-        $recurso = $conn-> query($insert);
+        $recurso = $conexion-> query($insert);
         header("Location: usuarios.php");
     }
 
      /* Consulta Países */
     $consulta = "describe clientes";
-    $recurso = $conn->query($consulta);
+    $recurso = $conexion->query($consulta);
     while ($hola = $recurso -> fetch_assoc()) {
         if ($hola[Field] == "comuna") {
             $comunas = $hola[Type];
@@ -34,7 +38,7 @@
     <title>Registro</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
-    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="../css/registro.css">
     <script>
         $(document).ready(function () {

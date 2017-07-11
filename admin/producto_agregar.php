@@ -1,9 +1,12 @@
 <?php
     /* Conexión */
-    require_once("conexion.php");
+    require_once("../conexion.php");
 
-    /* Verificar permisos */
-    require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
 
     /* Consulta Agregar Producto */
     if($_POST[agregar] == "Agregar") {
@@ -13,7 +16,7 @@
         if ($_POST[verde] == 1) {$color[] = "verde";};
         $listaColores =  implode(",", $color);
         $consulta = "INSERT INTO `productos` (`id`, `nombre`, `codigo`, `categoria`, `precio`, `disponibilidad`, `unidad`, `fecha`) VALUES (NULL, '$_POST[nombre]', '$_POST[codigo]', '$_POST[categoria]', '$_POST[precio]', '$_POST[disponibilidad]', '$_POST[unidad]', CURRENT_TIMESTAMP);";
-        $recurso = $conn-> query($consulta);
+        $recurso = $conexion-> query($consulta);
     }
 ?>
 
@@ -24,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Agregar Producto</title>
-    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="../css/producto_agregar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>

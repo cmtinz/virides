@@ -1,14 +1,18 @@
 <?
     /* Conexión */
-    require_once("conexion.php");
+    /* Conexión */
+    require_once("../conexion.php");
 
-    /* Verificar permisos */
-    require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
 
     /* Consulta Eliminar */
     if(isset($_GET[idEliminar]) && $_GET[idEliminar]<> ""){
         $eliminar = "DELETE FROM clientes WHERE 1 AND id=$_GET[idEliminar]";
-        $consultaEliminar = $conn -> query($eliminar);
+        $consultaEliminar = $conexion -> query($eliminar);
     }
 
     /* Consultas de Lista de Productos */
@@ -21,11 +25,11 @@
     $busqueda = $_GET[busqueda];
     $consulta= "SELECT * FROM clientes WHERE nombre LIKE '%$busqueda%'";
     $consulta_limite = $consulta . " LIMIT $inicio, $max";
-    $recurso = $conn->query($consulta_limite); 
+    $recurso = $conexion->query($consulta_limite); 
     if (isset($_GET[total])) {
         $total = $_GET[total];
     } else {
-        $recurso_totales = $conn -> query($consulta);
+        $recurso_totales = $conexion -> query($consulta);
         $total = $recurso_totales -> num_rows;
     }
     $total_pag = ceil($total/$max) - 1;
@@ -39,7 +43,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Usuarios</title>
-    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="css/grid.css">
 </head>
 <body>
     <!-- Encabezado -->

@@ -23,6 +23,9 @@
     <?php ;}?>
     <?php if ($usuarioRegistrado) { ?>
         <li><a href="editar-usuario.php">Perfil</a></li>
+        <?php if ($_SESSION['rol'] == "administrador") {?>
+            <li><a href="admin/index.php">Administración</a></li>
+        <?php;}?>
         <li><a href="salir.php">Salir</a></li>
     <?php } else {?>
         <li><a href="ingreso.php">Ingreso</a></li>

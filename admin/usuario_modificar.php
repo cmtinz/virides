@@ -1,13 +1,17 @@
 <?php
     /* Conexión */
-    require_once("conexion.php");
+    /* Conexión */
+    require_once("../conexion.php");
 
-    /* Verificar permisos */
-    require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
 
     /* Consulta Países */
     $consulta = "describe clientes";
-    $recurso = $conn->query($consulta);
+    $recurso = $conexion->query($consulta);
     while ($hola = $recurso -> fetch_assoc()) {
         if ($hola[Field] == "comuna") {
             $comunas = $hola[Type];
@@ -21,13 +25,13 @@
     /* Modificar Usuario */
     if($_POST[enviar] == "Actualizar") {
         $consultaModificar = "UPDATE `clientes` SET `nombre` = '$_POST[nombre]', `telefono` = '$_POST[telefono]', `comuna` = '$_POST[comuna]', `direccion` = '$_POST[direccion]', `usuario` = '$_POST[usuario]', `contrasena` = '$_POST[contrasena]' WHERE `clientes`.`id` = $_POST[id];";
-        $modificar = $conn -> query($consultaModificar);
+        $modificar = $conexion -> query($consultaModificar);
         header("Location: usuarios.php");
     }
 
     /* Consulta Usuarios */
     $consultaUsuarios = "SELECT * FROM clientes WHERE 1 AND id = '$_GET[id]'";
-    $recursoUsuarios = $conn -> query($consultaUsuarios);
+    $recursoUsuarios = $conexion -> query($consultaUsuarios);
     $fila = $recursoUsuarios -> fetch_assoc();
 
 ?>
@@ -40,7 +44,7 @@
     <title>Modificar Usuario</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
-    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="../css/registro.css">
     <script>
         $(document).ready(function () {

@@ -21,10 +21,11 @@
     }
 
     // Determina si el usuario está registrado
-    $consulta_determinarRegistro="select email, contrasena from clientes where id='". $_SESSION['user_id']."'";
+    $consulta_determinarRegistro="select email, contrasena, rol from clientes where id='". $_SESSION['user_id']."'";
     $recurso_determinarRegistro = $conexion -> query($consulta_determinarRegistro);
     $determinarRegistro = $recurso_determinarRegistro -> fetch_assoc();
     $usuarioRegistrado = novacia($determinarRegistro['email']) || novacia($determinarRegistro['contrasena'])? true:false;
+    $_SESSION['rol'] = $determinarRegistro['rol'];
 
     // Determina si existe una variable y en caso afirmativo la devuelve
     function existe($elemento) {

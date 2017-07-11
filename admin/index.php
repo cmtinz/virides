@@ -1,14 +1,17 @@
 <?
     /* Conexión */
-    require_once("conexion.php");
+    require_once("../conexion.php");
 
-    /* Verificar permisos */
-    require_once("sesion.php");
+    /* Iniciar Sesion */
+    require_once("../sesion.php");
+
+    /* Verificar Rol */
+    require_once("verificar_rol.php");
 
     /* Consulta Eliminar */
     if(isset($_GET[idEliminar]) && $_GET[idEliminar]<> ""){
         $eliminar = "DELETE FROM productos WHERE 1 AND id=$_GET[idEliminar]";
-        $consultaEliminar = $conn -> query($eliminar);
+        $consultaEliminar = $conexion -> query($eliminar);
     }
 
     /* Consultas de Lista de Productos */
@@ -21,11 +24,11 @@
     $busqueda = $_GET[busqueda];
     $consulta= "SELECT * FROM productos WHERE nombre LIKE '%$busqueda%' ORDER BY fecha DESC";
     $consulta_limite = $consulta . " LIMIT $inicio, $max";
-    $recurso = $conn->query($consulta_limite); 
+    $recurso = $conexion->query($consulta_limite); 
     if (isset($_GET[total])) {
         $total = $_GET[total];
     } else {
-        $recurso_totales = $conn -> query($consulta);
+        $recurso_totales = $conexion -> query($consulta);
         $total = $recurso_totales -> num_rows;
     }
     $total_pag = ceil($total/$max) - 1;
