@@ -1,0 +1,179 @@
+ @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+body {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 100px 2em auto auto;
+    grid-template-areas: "encabezado nav nav nav nav nav" "encabezadoTabla encabezadoTabla encabezadoTabla encabezadoTabla encabezadoTabla encabezadoTabla" "tabla tabla tabla tabla tabla tabla" "footer footer footer footer footer footer";
+    grid-row-gap: 1em;
+    align-items: start;
+    min-height: calc(100vh - 16px);
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+    color: #3642dd;
+}
+
+header {
+    /*grid-area: 1 / 1 / 2 / 3; /* RsCsReCe */
+    grid-area: encabezado;
+    align-self: center;
+    background-color: #4e56c6;
+    height: 100%;
+}
+
+header svg {
+    padding: 0.25em 0.25em 0.25em 0em;
+    box-sizing: border-box;
+    margin-left: 1em;
+}
+
+nav {
+    grid-area: nav;
+    align-self: stretch;
+    background: linear-gradient(to right, #4e56c6, #4DC6BD 80%)
+}
+
+nav ul {
+    display: flex;
+	justify-content: flex-start;
+    align-items: stretch;
+    padding-left: 0;
+    margin: 0;
+    height: 100%;
+    flex-direction: row-reverse;
+}
+
+nav li {
+    list-style-type: none;
+    padding: 1em;
+    display: flex;
+}
+
+nav li a {
+    border: 2px solid;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(100px - 2em);
+    text-decoration: none;
+    color: #3642dd;
+    transition: all 0.25s;
+}
+
+nav li a:hover {
+    background-color: #74d2cc;
+}
+
+nav li a.actual {
+    color: white;
+}
+
+#encabezadoTabla {
+    grid-area: encabezadoTabla;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: end;
+    grid-column-gap: 1em;
+    align-self: center;
+    padding: 0 1em;
+}
+
+#pager {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#pager li {
+    list-style-type: none;
+    margin-left: 1em;
+}
+
+#tablaProductos {
+    grid-area: tabla;
+    display: grid;
+    grid-row-gap: 0.5em;
+}
+
+.prodCont {
+    display: grid;
+    grid-template-columns: 100px 1fr 5em;
+    grid-column-gap: 0.5em;
+    align-items: center;
+    padding: 0.5em 1em;
+}
+
+.descProd h2 {
+    font-weight: normal;
+}
+
+.descProd h2 a {
+    text-decoration: none;
+}
+
+.descProd h2 a:hover {
+    text-decoration: underline;
+}
+
+.descProd h2::first-letter {
+    text-transform: uppercase;
+}
+
+.descProd p::first-letter {
+    text-transform: uppercase;
+}
+
+.prodCont:nth-of-type(odd) {
+    background: #ebf4f4;
+}
+
+footer {
+    grid-area: footer;
+    margin-top: 2em;
+    padding: 0 1em;
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-between
+}
+
+svg .rellenoLogo {
+    fill: #14ffef;
+}
+
+svg rect {
+    stroke: #14ffef;
+}
+
+/* Admin Productos */
+
+#tablaProductos.admin {
+    grid-row-gap: 0;
+}
+
+#tablaProductos.admin .prodCont{
+    grid-template-columns: 3fr 1fr;
+}
+
+#tablaProductos.admin .acciones {
+    justify-self: flex-end;
+}
+
+#tablaProductos.admin h2 {
+    margin: 0;
+}
+
+/* Admin: Usuarios */
+
+#tablaUsuarios {
+    grid-area: tabla;
+}
+
+#encabezadoTabla.conAgregar {
+    grid-template-columns: auto auto auto;
+}
