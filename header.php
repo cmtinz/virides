@@ -21,7 +21,7 @@
         </div>
         <div class="derecha">
             <form action="productos.php" method="get">
-                <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Búsqueda">
+                <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Búsqueda" <?= novacia($_GET['busqueda'])? "value='$busqueda'": ""?> >
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </form>
             <a type="button" class="btn btn-default" id="boton-carro" data-togle="tooltip" href="carro.php">

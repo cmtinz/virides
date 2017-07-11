@@ -12,11 +12,11 @@
         $pag=$_GET['pag'];
     }
     $inicio= $pag * $max;
-    if (isset($_GET['busqueda']) && $_GET['busqueda'] <> "") {
+    if (novacia($_GET['busqueda'])) {
         $busqueda = $_GET['busqueda'];
         $consulta = "SELECT * FROM productos WHERE disponibilidad = '1' AND nombre LIKE '%$busqueda%' ORDER BY nombre DESC";
     } else {
-        $consulta= " SELECT * FROM productos WHERE disponibilidad = '1' and nombre LIKE '%$busqueda%' AND categoria_id = '" . $_GET['categoria_id'] . "' ORDER BY nombre DESC";
+        $consulta= " SELECT * FROM productos WHERE disponibilidad = '1' AND categoria_id = '" . $_GET['categoria_id'] . "' ORDER BY nombre DESC";
     }
     $consulta_limite = $consulta . " LIMIT $inicio, $max";
     $recurso = $conexion->query($consulta_limite);
@@ -67,7 +67,7 @@
                     <?php require_once("menu.php");?>
                 </div>
                 <div class="col-lg-8 col-md-9 col-lg-offset-1 contenido">
-                    <h2><?= $nombre_categoria['nombre']?></h2>
+                    <h2><?= existe($busqueda)? "Búsqueda" : $nombre_categoria['nombre']?></h2>
 
                     <!-- Grid Productos -->
                     <div class="productos-tabla row">

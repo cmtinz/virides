@@ -3,7 +3,7 @@
     require_once("conexion.php");
 
     /* Sesión */
-    if(!isset($_SESSION))session_start();
+    require_once("sesion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">

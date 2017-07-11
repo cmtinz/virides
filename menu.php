@@ -21,5 +21,11 @@
             </a>
         </li>
     <?php ;}?>
-    <li><a href="ingreso.php">Ingreso</a></li>
+    <?php if ($usuarioRegistrado) { ?>
+        <li><a href="editar-usuario.php">Perfil</a></li>
+        <li><a href="salir.php">Salir</a></li>
+    <?php } else {?>
+        <li><a href="ingreso.php">Ingreso</a></li>
+        <li><a href="registro.php">Nuevo usuario</a></li>
+    <?php }?>
 </ul>
