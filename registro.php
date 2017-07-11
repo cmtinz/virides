@@ -14,6 +14,10 @@
     if(isset($_POST['boton']) && $_POST['boton'] == "Crear Usuario") {
         $consulta_crearUsuario = "update clientes set nombre = '". $_POST['nombre'] ."', email= '". $_POST['mail'] ."', telefono = '". $_POST['telefono'] ."', comuna = '". $_POST['comuna'] ."', direccion = '". $_POST['direccion'] ."', contrasena='". $_POST['contrasena'] ."' where id = '". $_SESSION['user_id'] . "'";
         $recurso_crearUsuario = $conexion -> query($consulta_crearUsuario);
+        // Devuelve a la página de origen
+        if (isset($_SESSION['pagina_origen']) && $_SESSION['pagina_origen'] <> "") {
+                header("Location: " . $_SESSION['pagina_origen']);
+        }
     }
 
     

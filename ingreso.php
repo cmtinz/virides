@@ -20,6 +20,10 @@
             $consulta_cambiarCompras = "update compras set cliente_id = '". $ingreso['id'] . "' where cliente_id = '". $_SESSION['user_id'] ."'";
             $recurso_cambiarCompras = $conexion -> query($consulta_cambiarCompras);
             $_SESSION['user_id'] = $ingreso['id'];
+            // Devuelve a la página de origen
+            if (isset($_SESSION['pagina_origen']) && $_SESSION['pagina_origen'] <> "") {
+                header("Location: " . $_SESSION['pagina_origen']);
+            }
         } else {
             $error="Usuario/Clave no registrados";
         }

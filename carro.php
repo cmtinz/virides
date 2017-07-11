@@ -52,6 +52,7 @@
 
     /* Inicializa variables */
     $total_Compra = 0;
+    $_SESSION['pagina_origen'] = basename($_SERVER['PHP_SELF']);
 
 ?>
 <!DOCTYPE html>
