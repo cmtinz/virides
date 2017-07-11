@@ -20,7 +20,7 @@
             <button type="button" class="btn btn-default hidden-lg hidden-md" data-toggle="collapse" data-target="#menu"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
         </div>
         <div class="derecha">
-            <form class="">
+            <form action="productos.php" method="get">
                 <input type="text" class="form-control" id="busqueda" name="busqueda" placeholder="Búsqueda">
                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
             </form>

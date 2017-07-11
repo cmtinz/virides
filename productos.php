@@ -12,9 +12,12 @@
         $pag=$_GET['pag'];
     }
     $inicio= $pag * $max;
-    $busqueda = "";
-    if(isset($_GET['busqueda'])) $busqueda = $_GET['busqueda'];
-    $consulta= " SELECT * FROM productos WHERE disponibilidad = '1' and nombre LIKE '%$busqueda%' AND categoria_id = '" . $_GET['categoria_id'] . "' ORDER BY fecha DESC";
+    if (isset($_GET['busqueda']) && $_GET['busqueda'] <> "") {
+        $busqueda = $_GET['busqueda'];
+        $consulta = "SELECT * FROM productos WHERE disponibilidad = '1' AND nombre LIKE '%$busqueda%' ORDER BY nombre DESC";
+    } else {
+        $consulta= " SELECT * FROM productos WHERE disponibilidad = '1' and nombre LIKE '%$busqueda%' AND categoria_id = '" . $_GET['categoria_id'] . "' ORDER BY nombre DESC";
+    }
     $consulta_limite = $consulta . " LIMIT $inicio, $max";
     $recurso = $conexion->query($consulta_limite);
     if (isset($_GET['total'])) {
