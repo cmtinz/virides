@@ -26,21 +26,27 @@
 
     /* Compra */
     if(isset($_POST['boton']) && $_POST['boton'] == "Comprar") {
-        $mensaje="El usuario ".$usuario['nombre']." ha realizado una compra en el sitio web:
-        Correo electrónico: ".$usuario['email']."
-        Teléfono: ".$_POST['telefono']."
-        Dirección de entrega: ".$_POST['direccion']."
-        Comuna: ".$_POST['comuna']."
-        Sub Total: " . $_POST['totalSubtotal']."
-        Envío: " . $_POST['totalEnvio']."
-        Total: " . $_POST['totalCompra']."
-        _______________________________________________
-        ";
-        $cabecera = "From: carl.martinezp@alumnos.duoc.cl\n";
+$mensaje="El usuario ".$usuario['nombre']." ha realizado una compra en el sitio web: \n
+    Correo electrónico: ".$usuario['email']."
+    Teléfono: ".$_POST['telefono']."
+    Dirección de entrega: ".$_POST['direccion']."
+    Comuna: ".$_POST['comuna']."\n
+    PRODUCTO\tPRECIO\tCANTIDAD\tTOTAL\n";
+    while ($compra = $recurso_productosComprados -> fetch_assoc()) {
+        $precio = number_format($compra['cantidad'] * $compra['producto_precio'], 0, ".", ",");
+        $mensaje .= "\t\t" . $compra['producto_nombre'] . ": $" . number_format($compra['producto_precio'], 0, ".", ",") . " * " . $compra['cantidad'] . " = $" . $precio . ".\n"; 
+    }
+$mensaje .= "   Sub Total: " . $_POST['totalSubtotal'] ."
+    Envío: " . $_POST['totalEnvio']."
+    Total: " . $_POST['totalCompra'].".
+_______________________________________________
+";
+        $cabecera = "From: compras@carl.martinezp.laboratoriodiseno.cl\n";
         $cabecera .= "Reply-To: carl.martinezp@alumnos.duoc.cl\n";
         $destinatario= $usuario['nombre'] . " <". $usuario['email'] .">";
         $asunto="Venta en Verdurería Bilbao 640";
         mail("$destinatario", "$asunto", "$mensaje", "$cabecera");
+        mail("carl.martinezp@gmail.com", "$asunto", "$mensaje", "$cabecera");
 
         // Eliminar productos del carro de compra
         $consulta_eliminarProductos = "delete from compras where cliente_id = '".$_SESSION['user_id']."'";
